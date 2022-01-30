@@ -1,30 +1,31 @@
 /**
- * Name:Ethan Williams
- * Email:e5williams@ucsd.edu
- * Sources used: javadoc conventions: 
- * https://www2.hawaii.edu/~tp_200/ics111/material/codingStandards.
- * html#:~:text=Every%20class%20and%20method%20should%20be%20preceded%20with,
- * should%20name%20the%20class%2C%20describe%20its%20purpose%2C%20and
+ * Name: Jinshi He
+ * Email: jih064@ucsd.edu
+ * None
  * 
- * This file holds MyLinkedList and Node classes.
- * MyLinkedList is an extention of the AbstractList class
- * from the java's util.
+ * This file contains all of the implementations of linkedlist for PA3, which 
+ * includes a MyLinkedList class (outlines the general structure of a 
+ * linkedlist) and a Node class (describe the attributes of a single node). 
+ * Node class is within MyLinkedList class, and they both contains useful 
+ * methods in support of the implementation of linkedlist as a whole. 
  */
 
+import java.lang.reflect.InaccessibleObjectException;
 import java.util.AbstractList;
 
 /** 
- * MyLinkedList is an implementation of the LinkedList that
- * includes a no-argument constructor, and the methods:
- * add(at index), add, get, getNth, set, remove, clear, isEmpty, size.
- * MyLinkedList uses a nested Node class for its nodes.
+ * This is a MyLinkedList class where the general structure of linkedlist is
+ * implemented. It includes three instance variables which corresponds to 
+ * three of its essential attributes: head node, tail node, and size. It also 
+ * includes many helper methods, enabling users to modify the linkedlist
+ * as they want. 
  */
 
 public class MyLinkedList<E> extends AbstractList<E> {
 
-	int size; //tracks number of elements
-	Node head; //will be a null dummy node
-	Node tail; //will also be a null dummy node
+	int size;
+	Node head;
+	Node tail;
 
 	/**
 	 * A Node class that holds data and references to previous and next Nodes.
@@ -41,8 +42,8 @@ public class MyLinkedList<E> extends AbstractList<E> {
 		public Node(E element) {
 			// Initialize the instance variables
 			this.data = element;
-			this.next = null;
-			this.prev = null;
+			this.setNext(null);;
+			this.setPrev(null);;
 		}
 
 		/** 
@@ -95,173 +96,190 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	}
 
 	//  Implementation of the MyLinkedList Class
-	/** Only 0-argument constructor is defined */
+	/**
+	 * The zero argument constructor for MyLinkedList that initiate all of
+	 * its instance variables
+	 */
 	public MyLinkedList() {
-		this.head = new Node(null); //dummy
-		this.tail = new Node(null); //dummy
-		this.head.setNext(this.tail);//point head/tail to eachother
-		this.tail.setPrev(this.head);
-		this.size = 0; //no elements in list so far
-	}
-
-	/**
-   * Accessor of size field
-   * @return size field of this list.
-   */ 
-	@Override
-	public int size() {
-		
-		return this.size; //return field the accessor is for
-	}
-	/**
-   * Accessor for specified node's element field
-   * @param index the index of the element to return
-   * @exception IndexOutOfBoundsException if index is negative
-   * or greater than or equal to the size of the list
-   * @return Element of the indexth element.
-   */ 
-	@Override
-	public E get(int index) {
-		//exception for index being negative or OOB
-		if(index < 0 || index >= this.size){
-			throw new IndexOutOfBoundsException("");
-		}
-
-		E toRet; //will hold return value
-		toRet = this.getNth(index).getElement();
-		return toRet;
-	}
-	 /**
-   * Creates a node with Element:data at the indexth position
-   * @param index the index of where to add 
-   * @param data element field of node to add
-   * @exception IndexOutOfBoundsException if index is negative
-   * or greater than the size of the list
-   * @exception NullPointerException if data is null
-   */ 
-	@Override
-	public void add(int index, E data) {
-		//exception for data being null
-		if(data == null){
-			throw new NullPointerException("");
-		}
-		//exception for index being negative or OOB
-		if(index < 0 || index > this.size){
-			throw new IndexOutOfBoundsException("");
-		}
-		//case of adding at index after last
-		if(index == size){
-			this.add(data);
-			return; //return because finished
-		}
-		Node newNode = new Node(data); //node to insert/add
-		newNode.setNext(this.getNth(index)); //set nN pointers 1st
-		newNode.setPrev(this.getNth(index).getPrev());
-		newNode.getNext().setPrev(newNode); //update other pointers
-		newNode.getPrev().setNext(newNode); 
-		this.size++; //update size
-	}
-	 /**
-   * Creates a node with Element:data at the end of list
-   * (but before the tail's dummy node) 
-   * @param data element field of node to add
-   * @exception NullPointerException if data is null
-   * @return true; no case for false
-   */ 
-	public boolean add(E data) {
-		//exception for data being null
-		if(data == null){
-			throw new NullPointerException("");
-		}
-
-		Node newNode = new Node(data); //node to add
-		this.tail.getPrev().setNext(newNode);
-		newNode.setPrev(this.tail.getPrev());
-		newNode.setNext(this.tail);
-		this.tail.setPrev(newNode);
-		this.size++; //update size
-		return true;
-	}
-	/**
-   * sets a specified node's Element field to data
-   * @param index the index of the element to change
-   * @param data value to change Element to
-   * @exception IndexOutOfBoundsException if index is negative
-   * or greater than or equal to the size of the list
-   * @exception NullPointerException if data is null
-   * @return replaced data from node
-   */ 
-	public E set(int index, E data) {
-		//exception for null data
-		if(data == null){
-			throw new NullPointerException("");
-		}
-		//exception for index being negative or OOB
-		if(index < 0 || index > this.size){
-			throw new IndexOutOfBoundsException("");
-		}
-		E toRet = this.get(index); //holds return value
-		this.getNth(index).setElement(data); //change element
-		return toRet; 
-	}
-	/**
-   * removes specified node from list
-   * @param index the index of the node to remove
-   * @exception IndexOutOfBoundsException if index is negative
-   * or greater than or equal to the size of the list
-   * @return removed node's data
-   */ 
-	public E remove(int index) {
-		//exception for index being negative or OOB
-		if(index < 0 || index > this.size){
-			throw new IndexOutOfBoundsException("");
-		}
-		E toRet = this.get(index); //holds return value
-		Node toRem = this.getNth(index); //node to remove
-		//update surrounding pointers to exclude toRem
-		toRem.getNext().setPrev(toRem.getPrev());
-		toRem.getPrev().setNext(toRem.getNext()); 
-
-		this.size--; //update size
-		return toRet; 
-	}
-	/**
-   * clears all non-dummy nodes from list
-   * and resets size
-   */ 
-	public void clear() {
-		this.head = new Node(null); //reset fields
+		// initiate head and tail to null node
+		this.head = new Node(null);
 		this.tail = new Node(null);
-		this.head.setNext(this.tail); //point head & tail to eachother
+
+		// set up the next and previous for appropriate nodes
+		this.head.setNext(this.tail);
 		this.tail.setPrev(this.head);
+
+		// initiate size to zero
 		this.size = 0;
 	}
+
 	/**
-   * tells if the list is empty
-   * @return true if there are no non-dummy nodes 
-   * in list; false otherwise
-   */ 
-	public boolean isEmpty() {
-		if(this.size == 0){//check if 0 elements
-			return true;
-		}  return false;
+	 * Return the number of nodes being stored
+	 * @return the number of nodes stored
+	 */
+	@Override
+	public int size() {
+		// return the number of nodes stored in linkedlist
+		return this.size;
 	}
+
 	/**
-   * Accessor for specified node
-   * @param index the index of the element to access
-   * @exception IndexOutOfBoundsException if index is negative
-   * or greater than or equal to the size of the list
-   * @return specified node
-   */ 
+	 * Get data within the node at position index
+	 * @param index - the index of targeted node
+	 * @return the data stored in the targeted node
+	 */
+	@Override
+	public E get(int index) {
+		// check if to throw exception
+		if(index < 0 || index > (this.size() - 1)) {
+			throw new IndexOutOfBoundsException("index is out of bound: " + index);
+		}
+
+		// return the element by accessing getNth(int index) and getElement
+		// methods
+		return this.getNth(index).getElement();  
+	}
+
+	/**
+	 * Add a node into this list by index. The input index can be any integers 
+	 * in between zero and the number of elements (inclusive on both ends)
+	 * @param index - the index we want to add our new node to
+	 * @param data - the data of the newly added node
+	 */
+	@Override
+	public void add(int index, E data) {
+		// check if any exceptions should be thrown
+		if(data == null) {
+			throw new NullPointerException("element is invalid");
+		}
+		if(index < 0 || index > this.size()) {
+			throw new IndexOutOfBoundsException("index is out of bound: " + index);
+		}
+
+		// initiate toAdd node and after node that will be after toAdd
+		// when add method is over
+		Node toAdd = new Node(data);
+		Node after = this.head.getNext();
+		for(int i = 0; i < index; i++) {
+			after = after.getNext();
+		}
+
+		// set up the previous and next for appropriate nodes
+		toAdd.setPrev(after.getPrev());
+		toAdd.setNext(after);
+		after.getPrev().setNext(toAdd);
+		after.setPrev(toAdd);
+		
+		// increase the size
+		this.size += 1;
+	}
+
+	/**
+	 * Add a node at the end into this list
+	 * @param data - the data of the newly added node
+	 * @return always true (such thing exists due to the method definiton in
+	 * AbstractList)
+	 */
+	public boolean add(E data) {
+		// check if data is null
+		if(data == null) {
+			throw new NullPointerException("element is invalid");
+		}
+
+		// use existing add(int index, E data) method
+		this.add(this.size(), data);
+		
+		// always return true
+		return true; 
+	}
+
+	/**
+	 * Set the element for the node at index to data
+	 * @param index - index of the node in which we want to change element
+	 * @param data - new data that is going to replace the old data
+	 * @return the element that was previously stored in this node
+	 */
+	public E set(int index, E data) {
+		// check if to throw exceptions
+		if(data == null) {
+			throw new NullPointerException("element is invalid");
+		}
+		if(index < 0 || index > (this.size() - 1)) {
+			throw new IndexOutOfBoundsException("index is out of bound: " + index);
+		}
+
+		// get specified node, save old data, update it to new data
+		Node target = this.getNth(index);
+		E oldData = target.getElement();
+		target.setElement(data);
+		
+		// return old data
+		return oldData;
+	}
+
+	/**
+	 * Remove the node from the position index in this list
+	 * @param index - index of the node that we are about to remove
+	 * @return the element that was previously stored in this node
+	 */
+	public E remove(int index) {
+		// check if to throw exceptions
+		if(index < 0 || index > (this.size() - 1)) {
+			throw new IndexOutOfBoundsException("index is out of bound: " + index);
+		}
+
+		// initate the target node we would like to remove, before node that 
+		// represents the node before target node, and after node that 
+		// represents the node after target node
+		Node target = this.getNth(index);
+		Node before = target.getPrev();
+		Node after = target.getNext();
+
+		// set previous and next for appropriate nodes
+		before.setNext(after);
+		after.setPrev(before);
+
+		// decrease the size
+		this.size -= 1;
+
+		// return removed node's data
+		return target.getElement();
+	}
+
+	/**
+	 * Remove all nodes from the list
+	 */
+	public void clear() {
+		// set previous and next for appropriate nodes
+		this.head.setNext(this.tail);
+		this.tail.setPrev(this.head);
+
+		// set size to zero
+		this.size = 0;
+	}
+
+	/**
+	 * Determine if the list is empty
+	 */
+	public boolean isEmpty() {
+		// check if size is zero
+		return (this.size() == 0);
+	}
+
+	/**
+	 * A helper method that returns the Node at a specified index, not the 
+	 * content
+	 * @param index - index of the targeted node
+	 * @return node at the specified index
+	 */
 	protected Node getNth(int index) {
-		//exception for index being negative or OOB
-		if(index < 0 || index > this.size){
-			throw new IndexOutOfBoundsException("");
+		if(index < 0 || index > (this.size() - 1)) {
+			throw new IndexOutOfBoundsException("index is out of bound: " + index);
 		}
-		Node curNode = this.head.getNext(); //use to traverse
-		for(int i = 0; i < index; i++){
-			curNode = curNode.getNext();
+		Node target = this.head.getNext();
+		for(int i = 0; i < index; i++) {
+			target = target.getNext();
 		}
-		return curNode;
+		return target;
 	}
 }
