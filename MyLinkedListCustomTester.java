@@ -1,12 +1,12 @@
 
 /**
- * Name:Bill(Jinshi) He
- * ID: A17005195
- * Email: jih064@ucsd.edu
- * Sources used: Put "None" if you did not have any external help
- * Some example of sources used would be Tutors, Zybooks, and Lecture Slides
+ * Name:Bill(Jinshi) He, Ethan Williams
+ * ID: A17005195, A16863675
+ * Email: jih064@ucsd.edu, e5williams@ucsd.edu
+ * Sources used: None
  * 
- * 2-4 sentence file description here
+ * This file contains the tester class for MyListIterator.
+ * The class was used to verify that our code works.
  */
 
 import static org.junit.Assert.*;
@@ -16,7 +16,8 @@ import java.util.NoSuchElementException;
 import org.junit.*;
 
 /**
- * TODO: Add your class header
+ * This tester class contains one or more edge-case tests for all
+ * the methods in MyListIterator.
  * 
  * IMPORTANT: Do not change the method headers and points are awarded
  * only if your test cases cover cases that the public tester file
