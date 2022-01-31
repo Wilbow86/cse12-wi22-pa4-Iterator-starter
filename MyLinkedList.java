@@ -286,6 +286,28 @@ public class MyLinkedList<E> extends AbstractList<E> {
 		}
 		return target;
 	}
+	
+	/**
+	*Method is for PA, seems to serve no purpose
+	*
+	*@author Ethan Williams
+	*@return new myListIterator
+	*/
+	public ListIterator<E> listIterator(){
+	
+		return this.new MyListIterator;
+	}
+	
+	/**
+	*Method is for PA, seems to serve no purpose
+	*
+	*@author Ethan Williams
+	*@return new myListIterator
+	*/
+	public ListIterator<E> Iterator(){
+	
+		return this.new MyListIterator;
+	}
 
 	/**
 	 * MyListIterator class implements a list iterator that is able to traverse
