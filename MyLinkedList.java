@@ -1,13 +1,15 @@
 /**
  * Name: Jinshi He, Ethan Williams
- * Email: jih064@ucsd.edu
- * None
+ * Email: jih064@ucsd.edu, e5williams@ucsd.edu
+ * Sources: None
  * 
  * This file contains all of the implementations of linkedlist for PA3, which 
  * includes a MyLinkedList class (outlines the general structure of a 
  * linkedlist) and a Node class (describe the attributes of a single node). 
  * Node class is within MyLinkedList class, and they both contains useful 
- * methods in support of the implementation of linkedlist as a whole. 
+ * methods in support of the implementation of linkedlist as a whole. The file
+ * also contains the MyListIterator class which is a more optimized tool to
+ * do library functions on a LinkedList
  */
 
 import java.lang.reflect.InaccessibleObjectException;
