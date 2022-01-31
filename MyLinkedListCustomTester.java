@@ -43,6 +43,7 @@ public class MyLinkedListCustomTester {
     }
 
     /**
+     * @author Bill(Jinshi) He  
      * test the hasNext method when called on a empty MyLinkedList
      */
     @Test
@@ -53,6 +54,7 @@ public class MyLinkedListCustomTester {
     }
 
     /**
+     * @author Bill(Jinshi) He
      * test the next method when there is no next element node in the list
      */
     @Test
@@ -71,6 +73,7 @@ public class MyLinkedListCustomTester {
     }
 
     /**
+     * @author Bill(Jinshi) He
      * test the hasPrevious method when applying to an empty list
      */
     @Test
@@ -81,6 +84,7 @@ public class MyLinkedListCustomTester {
     }
 
     /**
+     * @author Bill(Jinshi) He
      * test the previous method when there is no previous element node
      */
     @Test
@@ -99,6 +103,7 @@ public class MyLinkedListCustomTester {
     }
 
     /**
+     * @author Bill(Jinshi) He
      * test the nextIndex method when applying to empty linked list
      */
     @Test
@@ -108,6 +113,7 @@ public class MyLinkedListCustomTester {
     }
 
     /**
+     * @author Bill(Jinshi) He
      * test the previousIndex method when applying to empty list
      */
     @Test
@@ -117,6 +123,7 @@ public class MyLinkedListCustomTester {
     }
 
     /**
+     * @author Bill(Jinshi) He
      * test the set method when element is null
      */
     @Test
@@ -134,6 +141,7 @@ public class MyLinkedListCustomTester {
     }
 
     /**
+     * @author Bill(Jinshi) He
      * test the set method when add/remove have been called since most recent
      * next/previous call
      */
@@ -156,6 +164,7 @@ public class MyLinkedListCustomTester {
     }
 
     /**
+     * @author Bill(Jinshi) He
      * test the remove method when neither next nor previous were called
      */
     @Test
@@ -174,6 +183,7 @@ public class MyLinkedListCustomTester {
     }
 
     /**
+     * @author Bill(Jinshi) He
      * test the remove method when add or remove have been called
      */
     @Test
@@ -216,6 +226,7 @@ public class MyLinkedListCustomTester {
     }
 
     /**
+     * @author Bill(Jinshi) He
      * test the add method when element is null
      */
     @Test
@@ -230,7 +241,8 @@ public class MyLinkedListCustomTester {
 		}
 		assertTrue("Test if exception is thrown", ifExceptionIsThrown);
     }
-     /**
+     
+    /**
      * @author Ethan Williams
      * test the add method when adding to empty list
      */
@@ -241,5 +253,4 @@ public class MyLinkedListCustomTester {
         emptyIt.add((Integer)5);
         assertEquals("", 5, emptyIt.previous());
     }
-
 }
