@@ -397,12 +397,98 @@ public class MyLinkedList<E> extends AbstractList<E> {
 			return this.idx;
 		}
 
-		public int previousIndex() {
-			if(this.left == head) {
-				return -1;
-			}
-			return this.idx - 1;
+		/**
+		 * Method gives the value of the index of the node 
+		 * that would be returned by Previous
+		 * 
+		 * @return the index of the node that would be returned by Previous
+		 * @Author Ethan Williams
+		 */
+
+		public int previousIndex(){
+			// previous would return left node, so use idx-1
+			return idx -1;
 		}
 
+		/**
+		 * @author Ethan Williams
+		 * 
+		 * Method adds a node with specified element after the 
+		 * left node and moves forward an index
+		 * 
+		 * @param element element field of the node to be added
+		 * @exception NullPointerException if element is null
+		 */
+		public void add(E element){
+			//check if element is null
+			if(element == null){throw new NullPointerException("");}
+
+			Node newNode = new Node(element);
+			//set newNode and left/right pointers
+			newNode.setPrev(this.left);
+			newNode.setNext(this.right);
+			this.left.setNext(newNode);
+			this.left = newNode;
+			this.right.setPrev(newNode);
+			//update index
+			this.idx++;
+			//update canRemoveOrSet
+			this.canRemoveOrSet = false;
+
+		}
+
+		/**
+		 * @author Ethan Williams
+		 * 
+		 * Method sets the element field of left/right node
+		 * (depends on forward) to specified value
+		 * 
+		 * @param element element field to set chosen node's field to
+		 * @exception NullPointerException if element is null
+		 * @exception IllegalStateException if not allowed to set/remove 
+		 * right now
+		 */
+		public void set(E element){
+
+			//check if element is null
+			if(element == null){throw new NullPointerException("");}
+			//check if allowed to remove/set
+			if(canRemoveOrSet){
+				//if forward set left, if not set right
+				if(forward){
+					this.left.setElement(element);
+				}else{this.right.setElement(element);}
+
+			}else{throw new IllegalStateException("");}
+		}
+
+		/**
+		 * @author Ethan Williams
+		 * 
+		 * Method removes the left or right node depending
+		 * on state of forward
+		 * 
+		 * @exception IllegalStateException if mot allowed to set
+		 * right now
+		 */
+		public void remove(){
+			//check if allowed to remove
+			if(canRemoveOrSet){
+				//work on left if forward, right otherwise
+				if(forward){
+					//set ponters around node to remove to exclude the node
+					this.left.getPrev().setNext(this.right);
+					this.right.setPrev(this.left.getPrev());
+					this.left = this.right.getPrev();
+					idx--;
+				}else{
+					//set ponters around node to remove to exclude the node
+					this.right.getNext().setPrev(this.left);
+					this.left.setNext(this.right.getNext());
+					this.right = this.left.getNext();
+				}
+
+			}else{throw new IllegalStateException("");}
+		}		
 	}
 }
