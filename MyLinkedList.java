@@ -458,6 +458,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
 				if(forward){
 					this.left.setElement(element);
 				}else{this.right.setElement(element);}
+				this.canRemoveOrSet = false;
 
 			}else{throw new IllegalStateException("");}
 		}
@@ -486,7 +487,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
 					this.right.getNext().setPrev(this.left);
 					this.left.setNext(this.right.getNext());
 					this.right = this.left.getNext();
-				}
+				}this.canRemoveOrSet = false;
 
 			}else{throw new IllegalStateException("");}
 		}		
