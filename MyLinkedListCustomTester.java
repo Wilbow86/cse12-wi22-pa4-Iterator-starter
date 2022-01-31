@@ -192,6 +192,28 @@ public class MyLinkedListCustomTester {
 		}
 		assertTrue("Test if exception is thrown", ifExceptionIsThrown);
     }
+    /**
+     * @author Ethan Williams
+     * test the remove method when calling it twice(second should give State exception)
+     */
+    @Test
+    public void testRemoveTestThree() {
+        
+        MyLinkedList<Integer> fList= new MyLinkedList<Integer>();
+        fList.add(5);
+        fList.add(7);
+        MyLinkedList.MyListIterator fListIterator = fList.new MyListIterator();
+        
+        fListIterator.next();
+        fListIterator.remove();
+        int dummy = 0;
+        try{
+            fListIterator.remove();
+        }catch(IllegalStateException a){
+            dummy = 1;
+        }     
+        assertEquals("", 1, dummy);
+    }
 
     /**
      * test the add method when element is null
@@ -207,6 +229,17 @@ public class MyLinkedListCustomTester {
 			ifExceptionIsThrown = true;
 		}
 		assertTrue("Test if exception is thrown", ifExceptionIsThrown);
+    }
+     /**
+     * @author Ethan Williams
+     * test the add method when adding to empty list
+     */
+    @Test
+    public void testAdd2() {
+        MyLinkedList empty = new MyLinkedList<String>();
+        MyLinkedList.MyListIterator emptyIt = empty.new MyListIterator();
+        emptyIt.add((Integer)5);
+        assertEquals("", 5, emptyIt.previous());
     }
 
 }
