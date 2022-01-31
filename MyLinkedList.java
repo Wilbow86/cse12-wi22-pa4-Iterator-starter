@@ -295,7 +295,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	*/
 	public ListIterator<E> listIterator(){
 	
-		return this.new MyListIterator;
+		return this.new MyListIterator();
 	}
 	
 	/**
@@ -306,7 +306,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	*/
 	public ListIterator<E> Iterator(){
 	
-		return this.new MyListIterator;
+		return this.new MyListIterator();
 	}
 
 	/**
