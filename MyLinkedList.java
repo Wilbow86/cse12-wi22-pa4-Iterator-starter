@@ -1,5 +1,5 @@
 /**
- * Name: Jinshi He
+ * Name: Jinshi He, Ethan Williams
  * Email: jih064@ucsd.edu
  * None
  * 
@@ -12,6 +12,8 @@
 
 import java.lang.reflect.InaccessibleObjectException;
 import java.util.AbstractList;
+import java.util.ListIterator;
+import java.util.NoSuchElementException;
 
 /** 
  * This is a MyLinkedList class where the general structure of linkedlist is
@@ -281,5 +283,126 @@ public class MyLinkedList<E> extends AbstractList<E> {
 			target = target.getNext();
 		}
 		return target;
+	}
+
+	/**
+	 * MyListIterator class implements a list iterator that is able to traverse
+	 * list by moving a space at a time in either direction. It can also add, 
+	 * set, and remove elements in the list. 
+	 */
+	protected class MyListIterator implements ListIterator<E> {
+		// class variables
+		Node left, right;
+		int idx;
+		boolean forward;
+		boolean canRemoveOrSet;
+
+		/**
+		 * @author Bill(Jinshi) He
+		 * The zero argument constructor that creates an iterator on a 
+		 * MyLinkedList. It sets up all of its instance variables to default
+		 * value.
+		 */
+		public MyListIterator() {
+			this.idx = 0;
+			this.forward = true;
+			this.canRemoveOrSet = false;
+			this.left = head;
+			this.right = head.getNext();
+		}
+		
+		// MyListIterator methods
+		/**
+		 * @author Bill(Jinshi) He
+		 * Determine if there is an element node when going in the forward
+		 * (head to tail) direction fron the current iterator position. Dummy
+		 * nodes do not count as element nodes
+		 * @return if there is a next element node in the list
+		 */
+		public boolean hasNext() {
+			// If right node is tail node, then there is no next element,
+			// meaning that we are gonna return false. 
+			return (this.right != tail);
+		}
+
+		/**
+		 * @author Bill(Jinshi) He
+		 * Return the next element in the list when going forward, and move the 
+		 * iterator forward by one node.
+		 * @return the element of the next node in the list
+		 */
+		public E next() {
+			// Use haxNext() to determine if to throw NoSuchElementException
+			if(!this.hasNext()) {
+				throw new NoSuchElementException();
+			}
+
+			// Save the element of the node when going forward
+			E toReturn = this.right.getElement();
+			
+			// Modify the instance variables according to list iterator rule
+			this.idx += 1;
+			this.left = this.left.getNext();
+			this.right = this.right.getNext();
+			this.forward = true;
+			this.canRemoveOrSet = true;
+			
+			// Return the element
+			return toReturn;
+		}
+
+		/**
+		 * @author Bill(Jinshi) He
+		 * Determine if there is an element node in the backward direction
+		 * (tail to head) direction from the current iterator position. Dummy 
+		 * nodes do not count as element nodes.
+		 * @return if there is a previous element node in the list
+		 */
+		public boolean hasPrevious() {
+			// If the left node is head node, then there is no previous element 
+			// node in the list, which means that we are gonna return false.
+			return (this.left != head);
+		}
+
+		/**
+		 * @author Bill(Jinshi) He
+		 * Return the next element in the list when going backward, and move 
+		 * the iterator by one node.
+		 * @return element of the previous node in the list
+		 */
+		public E previous() {
+			// Use haxPrevious() to determine if to throw NoSuchElementException
+			if(!this.hasPrevious()) {
+				throw new NoSuchElementException();
+			}
+
+			// Save the element of the node when going backward
+			E toReturn = this.left.getElement();
+			
+			// Modify the instance variables according to list iterator rule
+			this.idx -= 1;
+			this.left = this.left.getPrev();
+			this.right = this.right.getPrev();
+			this.forward = false;
+			this.canRemoveOrSet = true;
+
+			// Return the element
+			return toReturn;
+		}
+
+		public int nextIndex() {
+			if(this.right == tail) {
+				return size();
+			}
+			return this.idx;
+		}
+
+		public int previousIndex() {
+			if(this.left == head) {
+				return -1;
+			}
+			return this.idx - 1;
+		}
+
 	}
 }
